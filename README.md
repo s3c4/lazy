@@ -1,4 +1,4 @@
-# Angular lazy loading and Translate service
+# lazy
 An angular repository for lazy loading and translate en|ro languages.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.5.
