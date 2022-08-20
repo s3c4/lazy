@@ -12,6 +12,8 @@ export class AppComponent {
   constructor(private translateService: TranslateService) {}
 
   public changeLanguage(activeLanguage: Event): void {
-    this.translateService.activeLanguage.next((<HTMLSelectElement>activeLanguage.target).value);
+    const selectedLanguage = (<HTMLSelectElement>activeLanguage.target).value;
+    this.translateService.activeLanguage.next(selectedLanguage);
+    sessionStorage.setItem('language', selectedLanguage);
   }
 }

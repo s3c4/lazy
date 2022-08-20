@@ -1,23 +1,26 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, UrlMatchResult, UrlSegment } from '@angular/router';
 
-let routes: Routes = [
-  { path: '', loadChildren: () => import('./components/dashboard/dashboard.module').then(m => m.DashboardModule)},
+function matcherCheck(segments: UrlSegment[], paths: string[]): UrlMatchResult | null {
+  return segments.length == 0 || (segments.length == 1 && paths.includes(segments[0]?.path))
+  ? { consumed: segments }
+  : null;
+}
+
+const routes: Routes = [
+  { 
+    matcher: (segments: UrlSegment[]) => matcherCheck(segments, ['', 'dashboard', 'bord']),
+    loadChildren: () => import('./components/dashboard/dashboard.module').then(m => m.DashboardModule)
+  },
+  {
+    matcher: (segments: UrlSegment[]) => matcherCheck(segments, ['user', 'utilizator']),
+    loadChildren: () => import('./components/user/user.module').then(m => m.UserModule)},
+  { 
+    matcher: (segments: UrlSegment[]) => matcherCheck(segments, ['rights', 'drepturi']),
+    loadChildren: () => import('./components/rights/rights.module').then(m => m.RightsModule)
+  },
+  {path: '**', redirectTo: ''}
 ];
-
-const routesEn: Routes = [
-  { path: 'dashboard', loadChildren: () => import('./components/dashboard/dashboard.module').then(m => m.DashboardModule)},
-  { path: 'user', loadChildren: () => import('./components/user/user.module').then(m => m.UserModule)},
-  { path: 'rights', loadChildren: () => import('./components/rights/rights.module').then(m => m.RightsModule)}
-];
-
-const routesRo: Routes = [
-  { path: 'bord', loadChildren: () => import('./components/dashboard/dashboard.module').then(m => m.DashboardModule)},
-  { path: 'utilizator', loadChildren: () => import('./components/user/user.module').then(m => m.UserModule)},
-  { path: 'drepturi', loadChildren: () => import('./components/rights/rights.module').then(m => m.RightsModule)}
-];
-
-routes.push(...routesEn, ...routesRo);
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
