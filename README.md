@@ -32,4 +32,4 @@ Route translate:
 
 [MIT](https://github.com/s3c4/angular-ts-math/blob/master/LICENSE) © [Andrei Secareanu](https://github.com/s3c4)
 
-With :blue_heart: from London
+Made with :blue_heart: from London
